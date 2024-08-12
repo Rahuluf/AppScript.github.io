@@ -17,7 +17,8 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
-  MenuGroup,  Grid,
+  MenuGroup,
+  Grid,
   Text,
   Image,
   useDisclosure,
@@ -30,7 +31,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 
 
@@ -318,11 +319,12 @@ export default function Shop() {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, aut blanditiis cumque totam nulla explicabo illum dolorem fugiat facilis modi.
         </Text>
       </Container>
+      
 
       <Container mt={4} mb={4} textAlign="right" maxW='container.lg'>
         <Menu>
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-            Filter
+          Recommended
           </MenuButton>
           <MenuList>
             <MenuItem onClick={() => handleFilter("newest")}>Newest</MenuItem>
