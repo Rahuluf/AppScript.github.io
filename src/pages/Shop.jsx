@@ -16,22 +16,32 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
-  MenuGroup,
   Grid,
   Text,
   Image,
   useDisclosure,
-  Divider,
-  ButtonGroup,
-  Spacer,
   Card,
   CardBody,
   CardFooter,
+  Divider,
+  ButtonGroup,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+
+// Dummy data for filter options
+const filterOptions = [
+  { value: "customizable", label: "Customizable" },
+  { value: "ideal-for", label: "Ideal for" },
+  { value: "occasion", label: "Occasion" },
+  { value: "work", label: "Work" },
+  { value: "fabric", label: "Fabric" },
+  { value: "segment", label: "Segment" },
+  { value: "suitable-for", label: "Suitable for" },
+  { value: "raw-material", label: "Raw Material" },
+  { value: "pattern", label: "Pattern" },
+];
 
 
 
@@ -282,6 +292,7 @@ const products = [
 
 export default function Shop() {
   const [filteredProducts, setFilteredProducts] = useState(products);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleFilter = (filterType) => {
     let sortedProducts;
@@ -319,26 +330,28 @@ export default function Shop() {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, aut blanditiis cumque totam nulla explicabo illum dolorem fugiat facilis modi.
         </Text>
       </Container>
-      
 
-      <Container mt={4} mb={4} textAlign="right" maxW='container.lg'>
-        <Menu>
-          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-          Recommended
-          </MenuButton>
-          <MenuList>
-            <MenuItem onClick={() => handleFilter("newest")}>Newest</MenuItem>
-            <MenuItem onClick={() => handleFilter("popular")}>Popular</MenuItem>
-            <MenuItem onClick={() => handleFilter("high-to-low")}>Price: High to Low</MenuItem>
-            <MenuItem onClick={() => handleFilter("low-to-high")}>Price: Low to High</MenuItem>
-            <MenuItem onClick={() => handleFilter("recommended")}>Recommended</MenuItem>
-          </MenuList>
-        </Menu>
+      <Container mt={4} mb={4} maxW="container.lg">
+        <Flex justify="space-between" align="center">
+          <Button onClick={onOpen} leftIcon={<HamburgerIcon />}>
+            Filters
+          </Button>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              Filter
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={() => handleFilter("newest")}>Newest</MenuItem>
+              <MenuItem onClick={() => handleFilter("popular")}>Popular</MenuItem>
+              <MenuItem onClick={() => handleFilter("high-to-low")}>Price: High to Low</MenuItem>
+              <MenuItem onClick={() => handleFilter("low-to-high")}>Price: Low to High</MenuItem>
+              <MenuItem onClick={() => handleFilter("recommended")}>Recommended</MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
       </Container>
 
-      
-
-      <Container mt={4} maxW='container.lg'>
+      <Container mt={4} maxW="container.lg">
         <Grid
           templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }}
           gap={6}
@@ -364,7 +377,24 @@ export default function Shop() {
         </Grid>
       </Container>
 
-      <container>
+      {/* Filter Drawer */}
+      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Filters</DrawerHeader>
+          <DrawerBody>
+            <Stack spacing={4}>
+              {filterOptions.map((option) => (
+                <Button key={option.value} variant="outline" width="full">
+                  {option.label}
+                </Button>
+              ))}
+            </Stack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+
       <Box mt={8} p={4} bg="gray.100" textAlign="center">
         <Text>© 2024 . All rights reserved.</Text>
         <Box mt={2}>
@@ -374,7 +404,6 @@ export default function Shop() {
           <Button variant="ghost" as="a" href="" leftIcon={<FaLinkedin />} />
         </Box>
       </Box>
-      </container>
     </>
   );
 }

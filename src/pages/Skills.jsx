@@ -3,7 +3,7 @@ import { Box, Heading } from '@chakra-ui/react'
 
 export default function Skills  ()  {
   return (
-   <Box pt="80px">Skills</Box>
+   <Box pt="50px">Skills</Box>
   )
 }
 // { value: 'Recommended', label: 'Recommended ' },
